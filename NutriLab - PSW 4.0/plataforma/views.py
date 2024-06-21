@@ -144,7 +144,10 @@ def refeicao(request, id_paciente):
         carboidratos = request.POST.get('carboidratos')
         proteinas = request.POST.get('proteinas')
         gorduras = request.POST.get('gorduras')
-
+        if not proteinas or not gorduras or not carboidratos:
+            messages.add_message(request, constants.ERROR, 'Preencha os campos em branco.')
+            return redirect(f'/plano_alimentar/{id_paciente}')
+        
         r1 = Refeicao(paciente=paciente,
                       titulo=titulo,
                       horario=horario,
